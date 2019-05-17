@@ -1,6 +1,7 @@
 import requests
 import json
 import random
+import math
 
 class Multilinguist:
   """This class represents a world traveller who knows 
@@ -85,6 +86,9 @@ class MathGenius(Multilinguist):
   def report_total(self, numbers):
     return 'The total is ' + str(sum(numbers))
 
+  def square_root(self, x):
+    return 'The square root is ' + str(math.sqrt(x))
+
 class QuoteCollector(Multilinguist):
 
   def __init__(self):
@@ -96,6 +100,26 @@ class QuoteCollector(Multilinguist):
   def random_quote(self):
     return self.quote_collection[random.randint(0,(len(self.quote_collection) - 1))]
 
+class FoodRecommender(Multilinguist):
+
+  def __init__(self):
+    self.foodbycontinent = {
+      'North America': "Willie Mae's Scotch House in New Orleans, Louisiana",
+      'South America': 'Peumayen Resturant in Santiago, Chile',
+      'Africa': 'Cape Malay food in Cape Town',
+      'Europe': 'Figlmüller in Vienna',
+      'Asia': 'In Love Restaurant in Bangkok',
+      'Australia': 'Broad Arrow in the Western Australia Outback',
+      'Antarctica': 'You should bring your own granola bars'
+    }
+
+  def ask(self):
+    print("Please enter a continent to get a food recommendation.")
+    user_input = input()
+    for continent, recommendation in self.foodbycontinent.items():
+      if continent == user_input:
+        return "You should go to: " + recommendation
+
 
 cindy = Multilinguist()
 print(cindy)
@@ -106,10 +130,13 @@ print(cindy.say_in_local_language('Hello, my name is Cindy'))
 
 me = MathGenius()
 print(me.report_total([23,45,676,34,5778,4,23,5465])) # The total is 12048
+print(me.square_root(4))
 me.travel_to("India")
 print(me.say_in_local_language(me.report_total([6,3,6,68,455,4,467,57,4,534]))) # है को कुल 1604
+print(me.say_in_local_language(me.square_root(4)))
 me.travel_to("Italy")
 print(me.say_in_local_language(me.report_total([324,245,6,343647,686545]))) # È Il totale 1030767
+print(me.say_in_local_language(me.square_root(4)))
 
 you = QuoteCollector()
 you.add_quote('I like to eat food')
@@ -119,3 +146,8 @@ print(you.quote_collection)
 print(you.random_quote())
 you.travel_to('Italy')
 print(you.say_in_local_language(you.random_quote()))
+
+we = FoodRecommender()
+print(we.ask())
+we.travel_to('Italy')
+print(we.say_in_local_language(we.ask()))
